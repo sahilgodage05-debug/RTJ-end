@@ -248,20 +248,12 @@
     <div class="glow-sphere-2"></div>
 
     <div class="card">
-        <h1>Welcome to My Profile</h1>
-        <div class="subtitle">Computer Science Student Project</div>
-        <p>Hi! I am testing a Python-based backend server that logs networking data for security analysis.</p>
-        
-        <div style="margin-bottom: 22px;">
-            <span class="badge">Status: Warning Active</span>
+        <div style="background: rgba(239, 68, 68, 0.05); border: 1px solid rgba(239, 68, 68, 0.15); padding: 25px; border-radius: 20px; margin-bottom: 22px;">
+            <div style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 600;">Your Captured IP:</div>
+            <div style="font-size: 1.6rem; font-weight: 800; color: var(--danger-color); font-family: monospace; letter-spacing: 0.5px;">{{ ip_address }}</div>
         </div>
         
-        <div style="background: rgba(239, 68, 68, 0.05); border: 1px solid rgba(239, 68, 68, 0.15); padding: 15px; border-radius: 16px; margin-bottom: 22px;">
-            <div style="font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 4px; text-transform: uppercase; letter-spacing: 1px; font-weight: 600;">Your Captured IP:</div>
-            <div style="font-size: 1.4rem; font-weight: 800; color: var(--danger-color); font-family: monospace; letter-spacing: 0.5px;">{{ ip_address }}</div>
-        </div>
-        
-        <div style="color: var(--danger-color); font-weight: 600; font-size: 0.88rem; display: flex; align-items: center; justify-content: center; gap: 6px; animation: pulse 1.5s infinite alternate;">
+        <div style="color: var(--danger-color); font-weight: 600; font-size: 0.9rem; display: flex; align-items: center; justify-content: center; gap: 8px; animation: pulse 1.5s infinite alternate;">
             ⚠️ User IP and device related details shared
         </div>
     </div>
