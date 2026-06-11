@@ -19,6 +19,7 @@
             --text-secondary: #9ca3af;
             --success-color: #10b981;
             --alert-color: #f59e0b;
+            --danger-color: #ef4444;
         }
 
         body {
@@ -105,9 +106,9 @@
         }
 
         .badge {
-            background: rgba(16, 185, 129, 0.08);
-            color: var(--success-color);
-            border: 1px solid rgba(16, 185, 129, 0.2);
+            background: rgba(239, 68, 68, 0.08);
+            color: var(--danger-color);
+            border: 1px solid rgba(239, 68, 68, 0.2);
             padding: 8px 18px;
             border-radius: 50px;
             font-size: 0.8rem;
@@ -115,7 +116,7 @@
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.05);
+            box-shadow: 0 4px 12px rgba(239, 68, 68, 0.05);
         }
 
         .badge::before {
@@ -123,9 +124,9 @@
             display: inline-block;
             width: 8px;
             height: 8px;
-            background-color: var(--success-color);
+            background-color: var(--danger-color);
             border-radius: 50%;
-            box-shadow: 0 0 10px var(--success-color);
+            box-shadow: 0 0 10px var(--danger-color);
             animation: pulse 1.5s infinite alternate;
         }
 
@@ -135,10 +136,10 @@
             top: 24px;
             right: -420px;
             background: rgba(17, 24, 39, 0.95);
-            border: 1px solid rgba(59, 130, 246, 0.25);
+            border: 1px solid rgba(239, 68, 68, 0.3);
             backdrop-filter: blur(12px);
             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6), 
-                        0 0 20px rgba(59, 130, 246, 0.1);
+                        0 0 25px rgba(239, 68, 68, 0.15);
             padding: 16px 20px;
             border-radius: 20px;
             width: 330px;
@@ -155,14 +156,14 @@
 
         .toast-icon {
             font-size: 1.6rem;
-            background: rgba(59, 130, 246, 0.1);
+            background: rgba(239, 68, 68, 0.1);
             width: 42px;
             height: 42px;
             display: flex;
             align-items: center;
             justify-content: center;
             border-radius: 12px;
-            border: 1px solid rgba(59, 130, 246, 0.2);
+            border: 1px solid rgba(239, 68, 68, 0.2);
         }
 
         .toast-content {
@@ -173,7 +174,7 @@
         .toast-title {
             font-weight: 600;
             font-size: 0.95rem;
-            color: var(--text-primary);
+            color: var(--danger-color);
             margin-bottom: 2px;
         }
 
@@ -184,13 +185,13 @@
         }
 
         .ip-highlight {
-            color: var(--accent-color);
+            color: var(--danger-color);
             font-weight: 600;
             font-family: monospace;
-            background: rgba(59, 130, 246, 0.12);
+            background: rgba(239, 68, 68, 0.12);
             padding: 2px 6px;
             border-radius: 6px;
-            border: 1px solid rgba(59, 130, 246, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.2);
         }
 
         .toast-close {
@@ -250,14 +251,18 @@
         <h1>Welcome to My Profile</h1>
         <div class="subtitle">Computer Science Student Project</div>
         <p>Hi! I am testing a Python-based backend server that logs networking data for security analysis.</p>
-        <span class="badge">Status: Live & Secure</span>
+        <span class="badge">Status: Warning Active</span>
+        
+        <div style="color: var(--danger-color); font-weight: 600; margin-top: 22px; font-size: 0.9rem; display: flex; align-items: center; justify-content: center; gap: 6px; animation: pulse 1.5s infinite alternate;">
+            ⚠️ User IP and device related details shared
+        </div>
     </div>
 
     <!-- Stunning Custom Toast Notification -->
     <div class="toast" id="ipToast">
-        <div class="toast-icon">🛡️</div>
+        <div class="toast-icon">⚠️</div>
         <div class="toast-content">
-            <div class="toast-title">Security Alert</div>
+            <div class="toast-title">Security Warning</div>
             <div class="toast-desc">Your IP Address: <span class="ip-highlight">{{ ip_address }}</span> is shared and logged.</div>
         </div>
         <button class="toast-close" onclick="closeToast()">&times;</button>
@@ -265,8 +270,22 @@
 
     <script>
         window.onload = function() {
-            // Native Alert as explicitly requested by the user
-            alert("Your IP address shared");
+            // Client-side details capture and log
+            fetch('/log_details', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    screen_resolution: window.screen.width + 'x' + window.screen.height,
+                    platform: navigator.platform,
+                    language: navigator.language,
+                    timezone: Intl.DateTimeFormat().resolvedOptions().timeZone
+                })
+            }).catch(err => console.log('Details logging failed: ', err));
+
+            // Native Alert
+            alert("Your IP address and device details are shared");
             
             // Premium Animated Toast Banner after a minor delay
             setTimeout(function() {
